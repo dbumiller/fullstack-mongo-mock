@@ -54,7 +54,7 @@ export default class App extends React.Component {
         </nav>
         <div className="row main-container">
           <div className="col-md-7 product-viewer-container">
-            <ProductViewer product={this.state.currentProduct}/>
+            <ProductViewer product={this.state.currentProduct} getProducts={this.getProducts}/>
           </div>
           <div className="col-md-5 product-list-container">
             <ProductList  products={this.state.products} changeCurrent={this.changeCurrent}/>

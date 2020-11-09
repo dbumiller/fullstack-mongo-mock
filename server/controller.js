@@ -22,7 +22,7 @@ const controller = {
     })
   },
   put: (req, res) => {
-    // console.log(req.params._id);
+    console.log(req.params._id);
     Product.updateProductHelper(req.params._id, req.body.curr_bid)
     .then(() => {
       res.status(200).send('put');
