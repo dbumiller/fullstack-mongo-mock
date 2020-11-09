@@ -9,13 +9,38 @@ export default class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-
+      products: [],
+      currentProduct: 'loading'
     }
 
+    this.getProducts = this.getProducts.bind(this);
+    this.changeCurrent = this.changeCurrent.bind(this);
+  }
+
+  componentDidMount() {
+    this.getProducts();
+  }
+
+  getProducts() {
+    axios.get('/name/products')
+    .then((results) => {
+      this.setState({
+        products: results.data,
+        currentProduct: results.data[0]
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+  }
+
+  changeCurrent(product) {
+    this.setState({
+      currentProduct: product
+    })
   }
 
   render(){
-
     return(
       <div>
         <div>
@@ -29,10 +54,10 @@ export default class App extends React.Component {
         </nav>
         <div className="row main-container">
           <div className="col-md-7 product-viewer-container">
-            <ProductViewer />
+            <ProductViewer product={this.state.currentProduct}/>
           </div>
           <div className="col-md-5 product-list-container">
-            <ProductList  />
+            <ProductList  products={this.state.products} changeCurrent={this.changeCurrent}/>
           </div>
         </div>
       </div>
